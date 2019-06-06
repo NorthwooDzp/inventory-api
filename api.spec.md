@@ -3,9 +3,9 @@
 ## Data structures
 Name | Structure
 ---|---
-User | `{ _id: String, email: String, password: String(hash) }`
-Associate | `{ _id: String, <br/> firstName: String, lastName: String, position: String }`
-Motherboard | `{ _id: String, manufacturer: String, model: String, chipset: String }`
+User | `{` <br/>&nbsp;&nbsp;  `_id: String,` <br/>&nbsp;&nbsp; `email: String,` <br/>&nbsp;&nbsp; `password: String(hash)`<br/> `}`
+Associate | `{` <br/>&nbsp;&nbsp; `_id: String,` <br/>&nbsp;&nbsp; `firstName: String,`<br/>&nbsp;&nbsp; `lastName: String,` <br/>&nbsp;&nbsp; `position: String` <br/> `}`
+Motherboard | `{`<br/>&nbsp;&nbsp; `_id: String,`<br/>&nbsp;&nbsp; `manufacturer: String,`<br/>&nbsp;&nbsp; `model: String,`<br/>&nbsp;&nbsp; `chipset: String`<br/> `}`
 Processor | `{ _id: String, manufacturer: String, model: String, frequency: String }`
 RAM | `{ _id: String, manufacturer: String, type: String, frequency: String, volume: Number }`
 HDD | `{ _id: String, manufacturer: String, model: String, volume: Number }`
