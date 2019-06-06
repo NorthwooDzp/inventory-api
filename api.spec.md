@@ -4,7 +4,7 @@
 Name | Structure
 ---|---
 User | `{ _id: String, email: String, password: String(hash) }`
-Associate | `{ _id: String, firstName: String, lastName: String, position: String }`
+Associate | `{ _id: String, <br> firstName: String, lastName: String, position: String }`
 Motherboard | `{ _id: String, manufacturer: String, model: String, chipset: String }`
 Processor | `{ _id: String, manufacturer: String, model: String, frequency: String }`
 RAM | `{ _id: String, manufacturer: String, type: String, frequency: String, volume: Number }`
@@ -27,7 +27,8 @@ Route | Method | Request | Response
 `/auth/login`| `POST` | `{email: String, password: String}` | `{token: String}`
 **`/auth./register` | `POST` | `{email: String. password: String}` | `{...User}`
 
-** - should be disabled after main accounts will be created
+** - should be disabled after main accounts will be created,
+
 ? - optional fields
 
 
