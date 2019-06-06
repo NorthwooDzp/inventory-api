@@ -3,9 +3,9 @@
 ## Data structures
 Name | Structure
 ---|---
-User | `{` <br/>&nbsp;&nbsp;  `_id: String,` <br/>&nbsp;&nbsp; `email: String,` <br/>&nbsp;&nbsp; `password: String(hash)`<br/> `}`
-Associate | `{` <br/>&nbsp;&nbsp; `_id: String,` <br/>&nbsp;&nbsp; `firstName: String,`<br/>&nbsp;&nbsp; `lastName: String,` <br/>&nbsp;&nbsp; `position: String` <br/> `}`
-Motherboard | `{`<br/>&nbsp;&nbsp; `_id: String,`<br/>&nbsp;&nbsp; `manufacturer: String,`<br/>&nbsp;&nbsp; `model: String,`<br/>&nbsp;&nbsp; `chipset: String`<br/> `}`
+User | `{ _id: String, email: String, password: String(hash) }`
+Associate | `{ _id: String, firstName: String, lastName: String, position: String }`
+Motherboard | `{ _id: String, manufacturer: String, model: String, chipset: String }`
 Processor | `{ _id: String, manufacturer: String, model: String, frequency: String }`
 RAM | `{ _id: String, manufacturer: String, type: String, frequency: String, volume: Number }`
 HDD | `{ _id: String, manufacturer: String, model: String, volume: Number }`
@@ -25,9 +25,8 @@ Headphones | `{ _id: String, assignedTo: String(userId) }`
 Route | Method | Request | Response
 -----|---|---|---
 `/auth/login`| `POST` | `{email: String, password: String}` | `{token: String}`
-**`/auth./register` | `POST` | `{email: String. password: String}` | `{...User}`
+`/auth./register` | `POST` | `{email: String. password: String}` | `{...User}`
 
-** - should be disabled after main accounts will be created,
 
 ? - optional fields
 
