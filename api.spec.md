@@ -4,7 +4,7 @@
 Name | Structure
 ---|---
 User | `{ _id: String, email: String, password: String(hash) }`
-Associate | `{ _id: String, <br> firstName: String, lastName: String, position: String }`
+Associate | `{ _id: String, <br/> firstName: String, lastName: String, position: String }`
 Motherboard | `{ _id: String, manufacturer: String, model: String, chipset: String }`
 Processor | `{ _id: String, manufacturer: String, model: String, frequency: String }`
 RAM | `{ _id: String, manufacturer: String, type: String, frequency: String, volume: Number }`
