@@ -4,18 +4,15 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
-const associateSchema = new Schema({
-    firstName: {
+const graphicsCardSchema = new Schema({
+    manufacturer: {
         type: String,
         required: true
     },
-    lastName: {
+    model: {
         type: String,
         required: true
-    },
-    position: {
-        type: String
     }
 });
 
-module.exports = mongoose.model('associates', associateSchema);
+module.exports = mongoose.model('GraphicsCards', graphicsCardSchema);

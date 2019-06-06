@@ -4,18 +4,23 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
-const associateSchema = new Schema({
-    firstName: {
+const ramSchema = new Schema({
+    manufacturer: {
         type: String,
         required: true
     },
-    lastName: {
+    model: {
         type: String,
         required: true
     },
-    position: {
-        type: String
+    frequency: {
+        type: String,
+        required: true
+    },
+    volume: {
+        type: Number,
+        required: true
     }
 });
 
-module.exports = mongoose.model('associates', associateSchema);
+module.exports = mongoose.model('RAM', ramSchema);
