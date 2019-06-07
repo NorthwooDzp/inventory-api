@@ -42,3 +42,17 @@ Route | Method | Request | Response
 `/{id}` | `DELETE` | - | -
 
 ? - optional fields
+
+### Processors
+
+`additional route: /processors`
+
+Route | Method | Request | Response
+:---|:---:|:---|:---
+`/` | `GET` | - | Processor[]
+`/{id}` | `GET` | - | Processor
+`/` | `POST` | `{ manufacturer: String, model: String, frequency: String }` | Processor
+`/{id}` | `PUT` | `{ manufacturer?: String, model?: String, frequency?: String }` | Processor
+`/{id}` | `DELETE` | - | -
+
+? - optional fields
