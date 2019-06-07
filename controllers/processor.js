@@ -1,10 +1,10 @@
-const Motherboard = require('../models/Motherboard');
+const Processor = require('../models/Processor');
 const errorHandler = require('../util/errorHandler');
 
 module.exports.getAll = async (req, res) => {
     try {
-        const motherboards = await Motherboard.find();
-        res.status(200).json(motherboards);
+        const processor = await Processor.find();
+        res.status(200).json(processor);
     } catch (e) {
         errorHandler(res, e);
     }
@@ -12,8 +12,8 @@ module.exports.getAll = async (req, res) => {
 
 module.exports.getById = async (req, res) => {
     try {
-        const motherboard = await Motherboard.findById(req.params.id);
-        res.status(200).json(motherboard);
+        const processor = await Processor.findById(req.params.id);
+        res.status(200).json(processor);
     } catch (e) {
         errorHandler(res, e);
     }
@@ -21,13 +21,13 @@ module.exports.getById = async (req, res) => {
 
 module.exports.create = async (req, res) => {
     try {
-        const motherboard = new Motherboard({
+        const processor = new Processor({
             manufacturer: req.body.manufacturer,
             model: req.body.model,
-            chipset: req.body.chipset
+            frequency: req.body.frequency
         });
-        await motherboard.save();
-        res.status(201).json(motherboard);
+        await processor.save();
+        res.status(201).json(processor);
     } catch (e) {
         errorHandler(res, e);
     }
@@ -35,12 +35,12 @@ module.exports.create = async (req, res) => {
 
 module.exports.update = async (req, res) => {
     try {
-        const motherboard = await Motherboard.findOneAndUpdate(
+        const processor = await Processor.findOneAndUpdate(
             {_id: req.params.id},
             {$set: req.body},
             {new: true}
         );
-        res.status(200).json(motherboard);
+        res.status(200).json(processor);
     } catch (e) {
         errorHandler(res, e);
     }
@@ -48,11 +48,11 @@ module.exports.update = async (req, res) => {
 
 module.exports.delete = async (req, res) => {
     try {
-        const motherboard = await Motherboard.findById(req.params.id);
-        if (!motherboard) {
-            res.status(404).json({message: 'Motherboard not found'})
+        const processor = await Processor.findById(req.params.id);
+        if (!processor) {
+            res.status(404).json({message: 'Processor not found'})
         } else {
-            await Motherboard.findOneAndDelete({_id: req.params.id});
+            await Processor.findOneAndDelete({_id: req.params.id});
             res.status(204).end();
         }
     } catch (e) {

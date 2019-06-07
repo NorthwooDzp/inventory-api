@@ -22,12 +22,23 @@ Headphones | `{ _id: String, assignedTo: String(userId) }`
 `Base url - http://localhost:4000/api`
 ### Auth
 
-Route | Method | Request | Response
------|---|---|---
-`/auth/login`| `POST` | `{email: String, password: String}` | `{token: String}`
-`/auth./register` | `POST` | `{email: String. password: String}` | `{...User}`
+`additional route: /auth`
 
+Route | Method | Request | Response
+:---|:---:|:---|:---
+`/login`| `POST` | `{email: String, password: String}` | `{token: String}`
+`/register` | `POST` | `{email: String. password: String}` | `{...User}`
+
+### Motherboards
+
+`additional route: /motherboards`
+
+Route | Method | Request | Response
+:---|:---:|:---|:---
+`/` | `GET` | - | Motherboard[]
+`/{id}` | `GET` | - | Motherboard
+`/` | `POST` | `{ manufacturer: String, model: String, chipset: String }` | Motherboard
+`/{id}` | `PUT` | `{ manufacturer?: String, model?: String, chipset?: String }` | Motherboard
+`/{id}` | `DELETE` | - | -
 
 ? - optional fields
-
-

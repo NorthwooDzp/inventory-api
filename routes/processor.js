@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const controller = require('../controllers/motherboard');
+const controller = require('../controllers/processor');
 
 router.get('/', controller.getAll);
 router.get('/:id', controller.getById);
