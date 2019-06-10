@@ -2,44 +2,333 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Inventory API Specification</title>
+    <style>
+        body {
+            padding: 20px 80px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 10px auto;
+        }
+
+        th, td {
+            padding: 5px;
+            border: 1px solid grey;
+            vertical-align: top;
+        }
+
+        td:first-child {
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding-left: 1rem;
+        }
+
+        pre {
+            margin: 0;
+        }
+    </style>
 </head>
+
+
 <body>
-# Computers inventory API
+<h1>
+    Computers inventory API
+</h1>
+<h2> Data structures </h2>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Structure</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>User</td>
+        <td>
+            <pre>
+    {
+        _id: String,
+        email: String,
+        password: String(hash)
+    }</pre>
+        </td>
+    </tr>
+    <tr>
+        <td>Associate</td>
+        <td>
+            <pre>
+    {
+        _id: String,
+        firstName: String,
+        lastName: String,
+        position: String
+    }</pre>
+        </td>
+    </tr>
+    <tr>
+        <td>Motherboard</td>
+        <td>
+            <pre>
+    {
+        _id: String,
+        manufacturer: String,
+        model: String,
+        chipset: String
+    }</pre>
+        </td>
+    </tr>
+    <tr>
+        <td>Processor</td>
+        <td>
+            <pre>
+    {
+        _id: String,
+        manufacturer: String,
+        model: String,
+        frequency: String
+    }</pre>
+        </td>
+    </tr>
+    <tr>
+        <td>RAM</td>
+        <td>
+            <pre>
+    {
+        _id: String,
+        manufacturer: String,
+        type: String,
+        frequency: String,
+        volume: Number
+    }</pre>
+        </td>
+    </tr>
+    <tr>
+        <td>HDD</td>
+        <td>
+            <pre>
+    {
+        _id: String,
+        manufacturer: String,
+        model: String,
+        volume: Number
+    }</pre>
+        </td>
+    </tr>
+    <tr>
+        <td>SSD</td>
+        <td>
+            <pre>
+    {
+        _id: String,
+        manufacturer: String,
+        model: String,
+        volume: Number
+    }</pre>
+        </td>
+    </tr>
+    <tr>
+        <td>Graphics Card</td>
+        <td>
+            <pre>
+    {
+        _id: String,
+        manufacturer: String,
+        model: String
+    }</pre>
+        </td>
+    </tr>
+    <tr>
+        <td>Computer</td>
+        <td>
+            <pre>
+    {
+        _id: String,
+        inventoryNumber: Number,
+        assignedTo: String(userId),
+        configuration:{
+            motherboard: String(id),
+            ram: String(id)[],
+            processor: String(id),
+            graphicsCard: String(id),
+            HDD: String(id),
+            SSD: String(id)
+        }
+    }</pre>
+        </td>
+    </tr>
+    <tr>
+        <td>Monitor</td>
+        <td>
+            <pre>
+    {
+        _id: String,
+        inventoryNumber: Number,
+        assignedTo: String(userId),
+        manufacturer: String,
+        model: String,
+        diagonal: Number
+    }</pre>
+        </td>
+    </tr>
+    <tr>
+        <td>Mouse</td>
+        <td>
+            <pre>
+    {
+        _id: String,
+        inventoryNumber: Number,
+        assignedTo: String(userId),
+        manufacturer: String,
+        model: String
+    }</pre>
+        </td>
+    </tr>
+    <tr>
+        <td>Keyboard</td>
+        <td>
+            <pre>
+    {
+        _id: String,
+        inventoryNumber: Number,
+        assignedTo: String(userId),
+        manufacturer: String,
+        model: String
+    }</pre>
+        </td>
+    </tr>
+    <tr>
+        <td>Headphones</td>
+        <td>
+            <pre>
+    {
+        _id: String,
+        inventoryNumber: Number,
+        assignedTo: String(userId),
+        manufacturer: String,
+        model: String
+    }</pre>
+        </td>
+    </tr>
+    </tbody>
+</table>
 
-## Data structures
-Name | Structure
----|---
-User | `{ _id: String, email: String, password: String(hash) }`
-Associate | `{ _id: String, firstName: String, lastName: String, position: String }`
-Motherboard | `{ _id: String, manufacturer: String, model: String, chipset: String }`
-Processor | `{ _id: String, manufacturer: String, model: String, frequency: String }`
-RAM | `{ _id: String, manufacturer: String, type: String, frequency: String, volume: Number }`
-HDD | `{ _id: String, manufacturer: String, model: String, volume: Number }`
-SSD | `{ _id: String, manufacturer: String, model: String, volume: Number }`
 
-GraphicsCard | `{ _id: String, manufacturer: String, model: String }`
-Computer | `{ _id: String, inventoryNumber: Number, configuration: Configuration, assignedTo: String(userId)}`
-Configuration | `{ motherboard: String(id), ram: String(id)[], processor: String(id), graphicsCard: String(id), HDD: String(id), SSD: String(id) }`
-Monitor | `{ _id: String, assignedTo: String(userId) }`
-Mouse | `{ _id: String, assignedTo: String(userId) }`
-Keyboard | `{ _id: String, assignedTo: String(userId) }`
-Headphones | `{ _id: String, assignedTo: String(userId) }`
+<h2>
+    Routes
+</h2>
+<b><i>Base url - http://localhost:4000/api</i></b>
+<h3>
+    Auth
+</h3>
 
-## Routes
-`Base url - http://localhost:4000/api`
-### Auth
+<i>additional route: <b>/auth</b></i>
+<table>
+    <thead>
+    <tr>
+        <th>Action</th>
+        <th>Route</th>
+        <th>Method</th>
+        <th>Request</th>
+        <th>Response</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Log in</td>
+        <td>/login</td>
+        <td>POST</td>
+        <td>
+            <pre>
+    {
+        email: String,
+        password: String
+    }</pre>
+        </td>
+        <td>
+            <pre>
+    {
+        token: String ('Bearer {token}')
+    }</pre>
+        </td>
+    </tr>
+    <tr>
+        <td>Register new user</td>
+        <td>/register</td>
+        <td>POST</td>
+        <td>
+            <pre>
+    {
+        email: String.
+        password: String
+    }</pre>
+        </td>
+        <td>User</td>
+    </tr>
+    </tbody>
+</table>
 
-`additional route: /auth`
+<h3>Motherboards</h3>
 
-Route | Method | Request | Response
-:---|:---:|:---|:---
-`/login`| `POST` | `{email: String, password: String}` | `{token: String}`
-`/register` | `POST` | `{email: String. password: String}` | `{...User}`
-
-### Motherboards
-
-`additional route: /motherboards`
+<i>additional route: <b>/motherboards</b></i>
+<table>
+    <thead>
+    <tr>
+        <th>Action</th>
+        <th>Route</th>
+        <th>Method</th>
+        <th>Request</th>
+        <th>Response</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Get All motherboards</td>
+        <td>/</td>
+        <td>GET</td>
+        <td>--</td>
+        <td>Motherboard[]</td>
+    </tr>
+    <tr>
+        <td>Get motherboard by ID</td>
+        <td>/{id}</td>
+        <td>GET</td>
+        <td>--</td>
+        <td>Motherboard</td>
+    </tr>
+    <tr>
+        <td>Create new motherboard</td>
+        <td>/</td>
+        <td>POST</td>
+        <td>
+            <pre>
+    {
+        manufacturer: String,
+        model: String,
+        chipset: String
+    }</pre>
+        </td>
+        <td>Motherboard</td>
+    </tr>
+    <tr>
+        <td>Update motherboard</td>
+        <td>/{id}</td>
+        <td>PUT</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Delete motherboard</td>
+        <td>/{id}</td>
+        <td>DELETE</td>
+        <td>--</td>
+        <td>--</td>
+    </tr>
+    </tbody>
+</table>
 
 Route | Method | Request | Response
 :---|:---:|:---|:---
