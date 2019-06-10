@@ -13,7 +13,7 @@ const ramSchema = new Schema({
         type: String,
         required: true
     },
-    frequency: {
+    type: {
         type: String,
         required: true
     },
