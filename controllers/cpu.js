@@ -1,9 +1,14 @@
 const CPU = require('../models/CPU');
+const Computer = require('../models/Computer');
 const errorHandler = require('../util/errorHandler');
 
 module.exports.getAll = async (req, res) => {
     try {
-        const cpu = await CPU.find();
+        let cpu = await CPU.find();
+        if (req.query.free) {
+            const computers = await Computer.find();
+            cpu = cpu.filter(cpu => !computers.find(comp => comp.configuration.cpu === cpu));
+        }
         res.status(200).json(cpu);
     } catch (e) {
         errorHandler(res, e);

@@ -19,4 +19,4 @@ const ssdSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('SSD', ssdSchema);
+module.exports = mongoose.model('ssd', ssdSchema);

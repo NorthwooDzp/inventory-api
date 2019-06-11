@@ -1,15 +1,13 @@
-const HDD = require('../models/HDD');
-const Computer = require('../models/Computer');
+const Mouse = require('../models/Mouse');
 const errorHandler = require('../util/errorHandler');
 
 module.exports.getAll = async (req, res) => {
     try {
-        let hdd = await HDD.find();
+        let mouses = await Mouse.find();
         if (req.query.free) {
-            const computers = await Computer.find();
-            hdd = hdd.filter(hdd => !computers.find(comp => comp.configuration.HDD === hdd))
+            mouses = mouses.filter(mouse => !mouse.assignedTo);
         }
-        res.status(200).json(hdd);
+        res.status(200).json(mouses);
     } catch (e) {
         errorHandler(res, e);
     }
@@ -17,8 +15,8 @@ module.exports.getAll = async (req, res) => {
 
 module.exports.getById = async (req, res) => {
     try {
-        const hdd = await HDD.findById(req.params.id);
-        res.status(200).json(hdd);
+        const mouse = await Mouse.findById(req.params.id);
+        res.status(200).json(mouse);
     } catch (e) {
         errorHandler(res, e);
     }
@@ -26,13 +24,14 @@ module.exports.getById = async (req, res) => {
 
 module.exports.create = async (req, res) => {
     try {
-        const hdd = new HDD({
+        const mouse = new Mouse({
+            assignedTo: req.body.assignedTo || null,
+            inventoryNumber: req.body.inventoryNumber,
             manufacturer: req.body.manufacturer,
-            model: req.body.model,
-            volume: req.body.volume
+            model: req.body.model
         });
-        await hdd.save();
-        res.status(201).json(hdd);
+        await mouse.save();
+        res.status(201).json(mouse);
     } catch (e) {
         errorHandler(res, e);
     }
@@ -40,12 +39,12 @@ module.exports.create = async (req, res) => {
 
 module.exports.update = async (req, res) => {
     try {
-        const hdd = await HDD.findOneAndUpdate(
+        const mouse = await Mouse.findOneAndUpdate(
             {_id: req.params.id},
             {$set: req.body},
             {new: true}
         );
-        res.status(200).json(hdd);
+        res.status(200).json(mouse);
     } catch (e) {
         errorHandler(res, e);
     }
@@ -53,11 +52,11 @@ module.exports.update = async (req, res) => {
 
 module.exports.delete = async (req, res) => {
     try {
-        const hdd = await HDD.findById(req.params.id);
-        if (!hdd) {
+        const mouse = await Mouse.findById(req.params.id);
+        if (!mouse) {
             res.status(404).json({message: 'HDD not found'})
         } else {
-            await HDD.findOneAndDelete({_id: req.params.id});
+            await Mouse.findOneAndDelete({_id: req.params.id});
             res.status(204).end();
         }
     } catch (e) {

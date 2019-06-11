@@ -19,4 +19,4 @@ const cpuSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('CPU', cpuSchema);
+module.exports = mongoose.model('cpu', cpuSchema);

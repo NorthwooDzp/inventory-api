@@ -1,9 +1,14 @@
 const SSD = require('../models/SSD');
+const Computer = require('../models/Computer');
 const errorHandler = require('../util/errorHandler');
 
 module.exports.getAll = async (req, res) => {
     try {
-        const ssd = await SSD.find();
+        let ssd = await SSD.find();
+        if (req.query.free) {
+            const computers = await Computer.find();
+            ssd = ssd.filter(item => !computers.find(el => el.configuration.cpu === item));
+        }
         res.status(200).json(ssd);
     } catch (e) {
         errorHandler(res, e);

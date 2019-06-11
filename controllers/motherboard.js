@@ -1,9 +1,14 @@
 const Motherboard = require('../models/Motherboard');
+const Computer = require('../models/Computer');
 const errorHandler = require('../util/errorHandler');
 
 module.exports.getAll = async (req, res) => {
     try {
-        const motherboards = await Motherboard.find();
+        let motherboards = await Motherboard.find();
+        if (req.query.free) {
+            const computers = Computer.find();
+            motherboards = motherboards.filter(item => !computers.find(el => el.configuration.motherboard === item));
+        }
         res.status(200).json(motherboards);
     } catch (e) {
         errorHandler(res, e);
@@ -36,9 +41,9 @@ module.exports.create = async (req, res) => {
 module.exports.update = async (req, res) => {
     try {
         const motherboard = await Motherboard.findOneAndUpdate(
-            {_id: req.params.id},
-            {$set: req.body},
-            {new: true}
+            { _id: req.params.id },
+            { $set: req.body },
+            { new: true }
         );
         res.status(200).json(motherboard);
     } catch (e) {
@@ -50,9 +55,9 @@ module.exports.delete = async (req, res) => {
     try {
         const motherboard = await Motherboard.findById(req.params.id);
         if (!motherboard) {
-            res.status(404).json({message: 'Motherboard not found'})
+            res.status(404).json({ message: 'Motherboard not found' });
         } else {
-            await Motherboard.findOneAndDelete({_id: req.params.id});
+            await Motherboard.findOneAndDelete({ _id: req.params.id });
             res.status(204).end();
         }
     } catch (e) {

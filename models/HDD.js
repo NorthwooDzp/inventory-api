@@ -19,4 +19,4 @@ const hddSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('HDD', hddSchema);
+module.exports = mongoose.model('hdd', hddSchema);

@@ -4,7 +4,16 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
-const ramSchema = new Schema({
+const ssdSchema = new Schema({
+    inventoryNumber: {
+        type: Number,
+        required: true,
+        unique: true
+    },
+    assignedTo: {
+        ref: 'associate',
+        type: Schema.Types.ObjectId
+    },
     manufacturer: {
         type: String,
         required: true
@@ -13,14 +22,10 @@ const ramSchema = new Schema({
         type: String,
         required: true
     },
-    type: {
-        type: String,
-        required: true
-    },
-    volume: {
+    diagonal: {
         type: Number,
         required: true
     }
 });
 
-module.exports = mongoose.model('ram', ramSchema);
+module.exports = mongoose.model('monitors', ssdSchema);

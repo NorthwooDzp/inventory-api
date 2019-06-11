@@ -4,7 +4,16 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
-const graphicsCardSchema = new Schema({
+const ssdSchema = new Schema({
+    inventoryNumber: {
+        type: Number,
+        required: true,
+        unique: true
+    },
+    assignedTo: {
+        ref: 'associate',
+        type: Schema.Types.ObjectId
+    },
     manufacturer: {
         type: String,
         required: true
@@ -15,4 +24,4 @@ const graphicsCardSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('GraphicsCards', graphicsCardSchema);
+module.exports = mongoose.model('mouses', ssdSchema);

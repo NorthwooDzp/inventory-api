@@ -8,16 +8,14 @@
             padding: 20px 80px;
         }
 
-        table {
-            border-collapse: collapse;
-            width: 80%;
-            margin: 10px auto;
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        .tableNots {
-            width: 80%;
-            margin: 0 auto;
-            font-style: italic;
+        table {
+            border-collapse: collapse;
+            width: 100%;
         }
 
         th, td {
@@ -40,32 +38,33 @@
 
 
 <body>
-<h1>
-    Computers inventory API
-</h1>
-<h2> Data structures </h2>
-<table>
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Structure</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>User</td>
-        <td>
+<div class="container">
+    <h1>
+        Computers inventory API
+    </h1>
+    <h2> Data structures </h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Structure</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>User</td>
+            <td>
             <pre>
     {
         _id: String,
         email: String,
         password: String(hash)
     }</pre>
-        </td>
-    </tr>
-    <tr>
-        <td>Associate</td>
-        <td>
+            </td>
+        </tr>
+        <tr>
+            <td>Associate</td>
+            <td>
             <pre>
     {
         _id: String,
@@ -73,11 +72,11 @@
         lastName: String,
         position: String
     }</pre>
-        </td>
-    </tr>
-    <tr>
-        <td>Motherboard</td>
-        <td>
+            </td>
+        </tr>
+        <tr>
+            <td>Motherboard</td>
+            <td>
             <pre>
     {
         _id: String,
@@ -85,11 +84,11 @@
         model: String,
         chipset: String
     }</pre>
-        </td>
-    </tr>
-    <tr>
-        <td>CPU</td>
-        <td>
+            </td>
+        </tr>
+        <tr>
+            <td>CPU</td>
+            <td>
             <pre>
     {
         _id: String,
@@ -97,11 +96,11 @@
         model: String,
         frequency: String
     }</pre>
-        </td>
-    </tr>
-    <tr>
-        <td>RAM</td>
-        <td>
+            </td>
+        </tr>
+        <tr>
+            <td>RAM</td>
+            <td>
             <pre>
     {
         _id: String,
@@ -110,11 +109,11 @@
         frequency: String,
         volume: Number
     }</pre>
-        </td>
-    </tr>
-    <tr>
-        <td>HDD</td>
-        <td>
+            </td>
+        </tr>
+        <tr>
+            <td>HDD</td>
+            <td>
             <pre>
     {
         _id: String,
@@ -122,11 +121,11 @@
         model: String,
         volume: Number
     }</pre>
-        </td>
-    </tr>
-    <tr>
-        <td>SSD</td>
-        <td>
+            </td>
+        </tr>
+        <tr>
+            <td>SSD</td>
+            <td>
             <pre>
     {
         _id: String,
@@ -134,41 +133,41 @@
         model: String,
         volume: Number
     }</pre>
-        </td>
-    </tr>
-    <tr>
-        <td>Graphics Card</td>
-        <td>
+            </td>
+        </tr>
+        <tr>
+            <td>GPU</td>
+            <td>
             <pre>
     {
         _id: String,
         manufacturer: String,
         model: String
     }</pre>
-        </td>
-    </tr>
-    <tr>
-        <td>Computer</td>
-        <td>
+            </td>
+        </tr>
+        <tr>
+            <td>Computer</td>
+            <td>
             <pre>
     {
         _id: String,
         inventoryNumber: Number,
         assignedTo: String(associateId),
         configuration:{
-            motherboard: String(id),
-            ram: String(id)[],
-            processor: String(id),
-            graphicsCard: String(id),
-            HDD: String(id),
-            SSD: String(id)
+            motherboard: Motherboard,
+            ram: RAM[],
+            cpu: CPU,
+            gpu: GPU,
+            hdd: HDD,
+            ssd: SSD
         }
     }</pre>
-        </td>
-    </tr>
-    <tr>
-        <td>Monitor</td>
-        <td>
+            </td>
+        </tr>
+        <tr>
+            <td>Monitor</td>
+            <td>
             <pre>
     {
         _id: String,
@@ -178,11 +177,11 @@
         model: String,
         diagonal: Number
     }</pre>
-        </td>
-    </tr>
-    <tr>
-        <td>Mouse</td>
-        <td>
+            </td>
+        </tr>
+        <tr>
+            <td>Mouse</td>
+            <td>
             <pre>
     {
         _id: String,
@@ -191,11 +190,11 @@
         manufacturer: String,
         model: String
     }</pre>
-        </td>
-    </tr>
-    <tr>
-        <td>Keyboard</td>
-        <td>
+            </td>
+        </tr>
+        <tr>
+            <td>Keyboard</td>
+            <td>
             <pre>
     {
         _id: String,
@@ -204,11 +203,11 @@
         manufacturer: String,
         model: String
     }</pre>
-        </td>
-    </tr>
-    <tr>
-        <td>Headphones</td>
-        <td>
+            </td>
+        </tr>
+        <tr>
+            <td>Headphones</td>
+            <td>
             <pre>
     {
         _id: String,
@@ -217,229 +216,434 @@
         manufacturer: String,
         model: String
     }</pre>
-        </td>
-    </tr>
-    </tbody>
-</table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
 
-<h2>
-    Routes
-</h2>
-<p><b><i>Base url - http://localhost:4000/api</i></b></p>
-<h3>
-    Auth
-</h3>
+    <h2>
+        Routes
+    </h2>
+    <p><b><i>Base url - https://inventory-pc-optimus.herokuapp.com/api</i></b></p>
 
-<p><i>additional route: <b>/auth</b></i></p>
-<table>
-    <thead>
-    <tr>
-        <th>Action</th>
-        <th>Route</th>
-        <th>Method</th>
-        <th>Request</th>
-        <th>Response</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>Log in</td>
-        <td>/login</td>
-        <td>POST</td>
-        <td>
+    <!--    -->
+    <h3>
+        Auth
+    </h3>
+
+    <p><i>additional route: <b>/auth</b></i></p>
+    <table>
+        <thead>
+        <tr>
+            <th>Action</th>
+            <th>Route</th>
+            <th>Method</th>
+            <th>Request</th>
+            <th>Response</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Log in</td>
+            <td>/login</td>
+            <td>POST</td>
+            <td>
             <pre>
     {
         email: String,
         password: String
     }</pre>
-        </td>
-        <td>
+            </td>
+            <td>
             <pre>
     {
         token: String ('Bearer {token}')
     }</pre>
-        </td>
-    </tr>
-    <tr>
-        <td>Register new user</td>
-        <td>/register</td>
-        <td>POST</td>
-        <td>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Register new user</td>
+            <td>/register</td>
+            <td>POST</td>
+            <td>
             <pre>
     {
         email: String,
         password: String
     }</pre>
-        </td>
-        <td>User</td>
-    </tr>
-    </tbody>
-</table>
+            </td>
+            <td>User</td>
+        </tr>
+        </tbody>
+    </table>
 
-<h3>Motherboards</h3>
+    <!--    -->
+    <h3>Motherboards</h3>
 
-<p><i>additional route: <b>/motherboards</b></i></p>
-<table>
-    <thead>
-    <tr>
-        <th>Action</th>
-        <th>Route</th>
-        <th>Method</th>
-        <th>Request</th>
-        <th>Response</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>Get all motherboards</td>
-        <td>/</td>
-        <td>GET</td>
-        <td>--</td>
-        <td>Motherboard[]</td>
-    </tr>
-    <tr>
-        <td>Get motherboard by ID</td>
-        <td>/{id}</td>
-        <td>GET</td>
-        <td>--</td>
-        <td>Motherboard</td>
-    </tr>
-    <tr>
-        <td>Create new motherboard</td>
-        <td>/</td>
-        <td>POST</td>
-        <td>
+    <p><i>additional route: <b>/motherboards</b></i></p>
+    <table>
+        <thead>
+        <tr>
+            <th>Action</th>
+            <th>Route</th>
+            <th>Method</th>
+            <th>Request</th>
+            <th>Response</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Get all motherboards</td>
+            <td>/</td>
+            <td>GET</td>
+            <td>query: <i>free: boolean</i> - return all not used items</td>
+            <td>Motherboard[]</td>
+        </tr>
+
+        <tr>
+            <td>Get motherboard by ID</td>
+            <td>/{id}</td>
+            <td>GET</td>
+            <td>--</td>
+            <td>Motherboard</td>
+        </tr>
+
+        <tr>
+            <td>Create new motherboard</td>
+            <td>/</td>
+            <td>POST</td>
+            <td>
             <pre>
     {
         manufacturer: String,
         model: String,
         chipset: String
     }</pre>
-        </td>
-        <td>Motherboard</td>
-    </tr>
-    <tr>
-        <td>Update motherboard</td>
-        <td>/{id}</td>
-        <td>PUT</td>
-        <td>
+            </td>
+            <td>Motherboard</td>
+        </tr>
+
+        <tr>
+            <td>Update motherboard</td>
+            <td>/{id}</td>
+            <td>PUT</td>
+            <td>
             <pre>
     {
         manufacturer?: String,
         model?: String,
         chipset?: String
     }</pre>
-        </td>
-        <td>Motherboard</td>
-    </tr>
-    <tr>
-        <td>Delete motherboard</td>
-        <td>/{id}</td>
-        <td>DELETE</td>
-        <td>--</td>
-        <td>--</td>
-    </tr>
-    </tbody>
-</table>
-<p class="tableNots">? - optional fields</p>
+            </td>
+            <td>Motherboard</td>
+        </tr>
 
+        <tr>
+            <td>Delete motherboard</td>
+            <td>/{id}</td>
+            <td>DELETE</td>
+            <td>--</td>
+            <td>--</td>
+        </tr>
+        </tbody>
+    </table>
+    <p><i>? - optional fields</i></p>
 
-<h3>CPU</h3>
+    <!--    -->
+    <h3>CPU</h3>
 
-<p><i>additional route: <b>/cpu</b></i></p>
+    <p><i>additional route: <b>/cpu</b></i></p>
 
-<table>
-    <thead>
-    <tr>
-        <th>Action</th>
-        <th>Route</th>
-        <th>Method</th>
-        <th>Request</th>
-        <th>Response</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>Get all CPUs</td>
-        <td>/</td>
-        <td>GET</td>
-        <td>--</td>
-        <td>CPU[]</td>
-    </tr>
-    <tr>
-        <td>Get COU by ID</td>
-        <td>/{id}</td>
-        <td>GET</td>
-        <td>--</td>
-        <td>CPU</td>
-    </tr>
-    <tr>
-        <td>Create new CPU</td>
-        <td>/</td>
-        <td>POST</td>
-        <td>
+    <table>
+        <thead>
+        <tr>
+            <th>Action</th>
+            <th>Route</th>
+            <th>Method</th>
+            <th>Request</th>
+            <th>Response</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Get all CPUs</td>
+            <td>/</td>
+            <td>GET</td>
+            <td>query: <i>free: boolean</i> - return all not used items</td>
+            <td>CPU[]</td>
+        </tr>
+
+        <tr>
+            <td>Get CPU by ID</td>
+            <td>/{id}</td>
+            <td>GET</td>
+            <td>--</td>
+            <td>CPU</td>
+        </tr>
+
+        <tr>
+            <td>Create new CPU</td>
+            <td>/</td>
+            <td>POST</td>
+            <td>
             <pre>
     {
         manufacturer: String,
         model: String,
         frequency: String
     }</pre>
-        </td>
-        <td>CPU</td>
-    </tr>
-    </tbody>
-</table>
+            </td>
+            <td>CPU</td>
+        </tr>
 
-Route | Method | Request | Response
-:---|:---:|:---|:---
-`/` | `POST` | `{ manufacturer: String, model: String, frequency: String }` | Processor
-`/{id}` | `PUT` | `{ manufacturer?: String, model?: String, frequency?: String }` | Processor
-`/{id}` | `DELETE` | - | -
+        <tr>
+            <td>Update CPU</td>
+            <td>/{id}</td>
+            <td>PUT</td>
+            <td>
+            <pre>
+    {
+        manufacturer?: String,
+        model?: String,
+        frequency?: String
+    }</pre>
+            </td>
+            <td>CPU</td>
+        </tr>
 
-? - optional fields
+        <tr>
+            <td>Delete CPU</td>
+            <td>/{id}</td>
+            <td>DELETE</td>
+            <td>--</td>
+            <td>--</td>
+        </tr>
+        </tbody>
+    </table>
+    <p><i>? - optional fields</i></p>
 
-### RAM
+    <!--    -->
+    <h3>RAM</h3>
 
-`additional route: /ram`
+    <p><i>additional route: <b>/ram</b></i></p>
 
-Route | Method | Request | Response
-:---|:---:|:---|:---
-`/` | `GET` | - | RAM[]
-`/{id}` | `GET` | - | RAM
-`/` | `POST` | `{ manufacturer: String, type: String, frequency: String, volume: String }` | RAM
-`/{id}` | `PUT` | `{ manufacturer?: String, type?: String, frequency?: String, volume?: String }` | RAM
-`/{id}` | `DELETE` | - | -
+    <table>
+        <thead>
+        <tr>
+            <th>Action</th>
+            <th>Route</th>
+            <th>Method</th>
+            <th>Request</th>
+            <th>Response</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Get all RAM</td>
+            <td>/</td>
+            <td>GET</td>
+            <td>query: <i>free: boolean</i> - return all not used items</td>
+            <td>RAM[]</td>
+        </tr>
 
-? - optional fields
+        <tr>
+            <td>Get RAM by ID</td>
+            <td>/{id}</td>
+            <td>GET</td>
+            <td>--</td>
+            <td>RAM</td>
+        </tr>
 
-### HDD
+        <tr>
+            <td>Create new RAM</td>
+            <td>/</td>
+            <td>POST</td>
+            <td>
+                <pre>
+    {
+        manufacturer: String,
+        type: String,
+        frequency: String,
+        volume: String
+    }</pre>
+            </td>
+            <td>RAM</td>
+        </tr>
 
-`additional route: /hdd`
+        <tr>
+            <td>Update RAM</td>
+            <td>/{id}</td>
+            <td>PUT</td>
+            <td>
+                <pre>
+    {
+        manufacturer?: String,
+        type?: String,
+        frequency?: String,
+        volume?: String
+    }</pre>
+            </td>
+            <td>RAM</td>
+        </tr>
 
-Route | Method | Request | Response
-:---|:---:|:---|:---
-`/` | `GET` | - | HDD[]
-`/{id}` | `GET` | - | HDD
-`/` | `POST` | `{ manufacturer: String, model: String, volume: String }` | HDD
-`/{id}` | `PUT` | `{ manufacturer?: String, model?: String, volume?: String }` | HDD
-`/{id}` | `DELETE` | - | -
+        <tr>
+            <td>Delete RAM</td>
+            <td>/{id}</td>
+            <td>DELETE</td>
+            <td>--</td>
+            <td>--</td>
+        </tr>
+        </tbody>
+    </table>
+    <p><i>? - optional field</i></p>
 
-? - optional fields
+    <!--    -->
+    <h3>HDD</h3>
 
-### HDD
+    <p><i>additional route: <b>/hdd</b></i></p>
+    <table>
+        <thead>
+        <tr>
+            <th>Action</th>
+            <th>Route</th>
+            <th>Method</th>
+            <th>Request</th>
+            <th>Response</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Get all HDDs</td>
+            <td>/</td>
+            <td>GET</td>
+            <td>query: <i>free: boolean</i> - return all not used items</td>
+            <td>HDD[]</td>
+        </tr>
 
-`additional route: /SSD`
+        <tr>
+            <td>Get HDD by ID</td>
+            <td>/{id}</td>
+            <td>GET</td>
+            <td>--</td>
+            <td>HDD</td>
+        </tr>
 
-Route | Method | Request | Response
-:---|:---:|:---|:---
-`/` | `GET` | - | SSD[]
-`/{id}` | `GET` | - | SSD
-`/` | `POST` | `{ manufacturer: String, model: String, volume: String }` | SSD
-`/{id}` | `PUT` | `{ manufacturer?: String, model?: String, volume?: String }` | SSD
-`/{id}` | `DELETE` | - | -
+        <tr>
+            <td>Create new HDD</td>
+            <td>/</td>
+            <td>POST</td>
+            <td>
+                <pre>
+    {
+        manufacturer: String,
+        model: String,
+        volume: String
+    }</pre>
+            </td>
+            <td>HDD</td>
+        </tr>
+        <tr>
+            <td>Update HDD</td>
+            <td>/{id}</td>
+            <td>PUT</td>
+            <td>
+                <pre>
+    {
+        manufacturer?: String,
+        model?: String,
+        volume?: String
+    }</pre>
+            </td>
+            <td>HDD</td>
+        </tr>
 
-? - optional fields
+        <tr>
+            <td>Delete HDD</td>
+            <td>/{id}</td>
+            <td>Delete</td>
+            <td>--</td>
+            <td>--</td>
+        </tr>
+        </tbody>
+    </table>
+    <p><i>? - optional field</i></p>
 
+    <!--    -->
+    <h3>SSD</h3>
+
+    <p><i>additional route: <b>/ssd</b></i></p>
+    <table>
+        <thead>
+        <tr>
+            <th>Action</th>
+            <th>Route</th>
+            <th>Method</th>
+            <th>Request</th>
+            <th>Response</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Get all SSDs</td>
+            <td>/</td>
+            <td>GET</td>
+            <td>query: <i>free: boolean</i> - return all not used items</td>
+            <td>SSD[]</td>
+        </tr>
+
+        <tr>
+            <td>Get SSD by ID</td>
+            <td>/{id}</td>
+            <td>GET</td>
+            <td>--</td>
+            <td>SSD</td>
+        </tr>
+
+        <tr>
+            <td>Create new SSD</td>
+            <td>/</td>
+            <td>POST</td>
+            <td>
+                <pre>
+    {
+        manufacturer: String,
+        model: String,
+        volume: String
+    }</pre>
+            </td>
+            <td>SSD</td>
+        </tr>
+        <tr>
+            <td>Update SSD</td>
+            <td>/{id}</td>
+            <td>PUT</td>
+            <td>
+                <pre>
+    {
+        manufacturer?: String,
+        model?: String,
+        volume?: String
+    }</pre>
+            </td>
+            <td>SSD</td>
+        </tr>
+
+        <tr>
+            <td>Delete SSD</td>
+            <td>/{id}</td>
+            <td>Delete</td>
+            <td>--</td>
+            <td>--</td>
+        </tr>
+        </tbody>
+    </table>
+    <p><i>? - optional field</i></p>
+
+    <!--    -->
+
+
+</div>
 </body>
 </html>

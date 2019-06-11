@@ -21,24 +21,24 @@ const computerSchema = new Schema({
         },
         ram: [
             {
-                ref: 'RAM',
+                ref: 'ram',
                 type: Schema.Types.ObjectId
             }
         ],
-        processor: {
-            ref: 'processors',
+        cpu: {
+            ref: 'cpu',
             type: Schema.Types.ObjectId
         },
-        graphicsCard: {
-            ref: 'graphicsCards',
+        gpu: {
+            ref: 'gpu',
             type: Schema.Types.ObjectId
         },
         HDD: {
-            ref: 'HDD',
+            ref: 'hdd',
             type: Schema.Types.ObjectId
         },
         SSD: {
-            ref: 'SSD',
+            ref: 'ssd',
             type: Schema.Types.ObjectId
         },
     }

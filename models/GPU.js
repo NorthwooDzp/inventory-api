@@ -4,7 +4,7 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
-const ramSchema = new Schema({
+const gpuSchema = new Schema({
     manufacturer: {
         type: String,
         required: true
@@ -12,15 +12,7 @@ const ramSchema = new Schema({
     model: {
         type: String,
         required: true
-    },
-    type: {
-        type: String,
-        required: true
-    },
-    volume: {
-        type: Number,
-        required: true
     }
 });
 
-module.exports = mongoose.model('ram', ramSchema);
+module.exports = mongoose.model('gpu', gpuSchema);
