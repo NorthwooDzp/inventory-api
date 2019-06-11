@@ -14,6 +14,12 @@
             margin: 10px auto;
         }
 
+        .tableNots {
+            width: 80%;
+            margin: 0 auto;
+            font-style: italic;
+        }
+
         th, td {
             padding: 5px;
             border: 1px solid grey;
@@ -82,7 +88,7 @@
         </td>
     </tr>
     <tr>
-        <td>Processor</td>
+        <td>CPU</td>
         <td>
             <pre>
     {
@@ -148,7 +154,7 @@
     {
         _id: String,
         inventoryNumber: Number,
-        assignedTo: String(userId),
+        assignedTo: String(associateId),
         configuration:{
             motherboard: String(id),
             ram: String(id)[],
@@ -167,7 +173,7 @@
     {
         _id: String,
         inventoryNumber: Number,
-        assignedTo: String(userId),
+        assignedTo: String(associateId),
         manufacturer: String,
         model: String,
         diagonal: Number
@@ -181,7 +187,7 @@
     {
         _id: String,
         inventoryNumber: Number,
-        assignedTo: String(userId),
+        assignedTo: String(associateId),
         manufacturer: String,
         model: String
     }</pre>
@@ -194,7 +200,7 @@
     {
         _id: String,
         inventoryNumber: Number,
-        assignedTo: String(userId),
+        assignedTo: String(associateId),
         manufacturer: String,
         model: String
     }</pre>
@@ -207,7 +213,7 @@
     {
         _id: String,
         inventoryNumber: Number,
-        assignedTo: String(userId),
+        assignedTo: String(associateId),
         manufacturer: String,
         model: String
     }</pre>
@@ -220,12 +226,12 @@
 <h2>
     Routes
 </h2>
-<b><i>Base url - http://localhost:4000/api</i></b>
+<p><b><i>Base url - http://localhost:4000/api</i></b></p>
 <h3>
     Auth
 </h3>
 
-<i>additional route: <b>/auth</b></i>
+<p><i>additional route: <b>/auth</b></i></p>
 <table>
     <thead>
     <tr>
@@ -262,7 +268,7 @@
         <td>
             <pre>
     {
-        email: String.
+        email: String,
         password: String
     }</pre>
         </td>
@@ -273,7 +279,7 @@
 
 <h3>Motherboards</h3>
 
-<i>additional route: <b>/motherboards</b></i>
+<p><i>additional route: <b>/motherboards</b></i></p>
 <table>
     <thead>
     <tr>
@@ -286,7 +292,7 @@
     </thead>
     <tbody>
     <tr>
-        <td>Get All motherboards</td>
+        <td>Get all motherboards</td>
         <td>/</td>
         <td>GET</td>
         <td>--</td>
@@ -317,8 +323,15 @@
         <td>Update motherboard</td>
         <td>/{id}</td>
         <td>PUT</td>
-        <td></td>
-        <td></td>
+        <td>
+            <pre>
+    {
+        manufacturer?: String,
+        model?: String,
+        chipset?: String
+    }</pre>
+        </td>
+        <td>Motherboard</td>
     </tr>
     <tr>
         <td>Delete motherboard</td>
@@ -329,25 +342,57 @@
     </tr>
     </tbody>
 </table>
+<p class="tableNots">? - optional fields</p>
+
+
+<h3>CPU</h3>
+
+<p><i>additional route: <b>/cpu</b></i></p>
+
+<table>
+    <thead>
+    <tr>
+        <th>Action</th>
+        <th>Route</th>
+        <th>Method</th>
+        <th>Request</th>
+        <th>Response</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Get all CPUs</td>
+        <td>/</td>
+        <td>GET</td>
+        <td>--</td>
+        <td>CPU[]</td>
+    </tr>
+    <tr>
+        <td>Get COU by ID</td>
+        <td>/{id}</td>
+        <td>GET</td>
+        <td>--</td>
+        <td>CPU</td>
+    </tr>
+    <tr>
+        <td>Create new CPU</td>
+        <td>/</td>
+        <td>POST</td>
+        <td>
+            <pre>
+    {
+        manufacturer: String,
+        model: String,
+        frequency: String
+    }</pre>
+        </td>
+        <td>CPU</td>
+    </tr>
+    </tbody>
+</table>
 
 Route | Method | Request | Response
 :---|:---:|:---|:---
-`/` | `GET` | - | Motherboard[]
-`/{id}` | `GET` | - | Motherboard
-`/` | `POST` | `{ manufacturer: String, model: String, chipset: String }` | Motherboard
-`/{id}` | `PUT` | `{ manufacturer?: String, model?: String, chipset?: String }` | Motherboard
-`/{id}` | `DELETE` | - | -
-
-? - optional fields
-
-### Processors
-
-`additional route: /processors`
-
-Route | Method | Request | Response
-:---|:---:|:---|:---
-`/` | `GET` | - | Processor[]
-`/{id}` | `GET` | - | Processor
 `/` | `POST` | `{ manufacturer: String, model: String, frequency: String }` | Processor
 `/{id}` | `PUT` | `{ manufacturer?: String, model?: String, frequency?: String }` | Processor
 `/{id}` | `DELETE` | - | -

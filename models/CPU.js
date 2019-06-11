@@ -4,7 +4,7 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
-const processorSchema = new Schema({
+const cpuSchema = new Schema({
     manufacturer: {
         type: String,
         required: true
@@ -19,4 +19,4 @@ const processorSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('processors', processorSchema);
+module.exports = mongoose.model('CPU', cpuSchema);

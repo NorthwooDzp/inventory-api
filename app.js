@@ -3,7 +3,7 @@ const passport = require('passport');
 
 const authRoutes = require('./routes/auth');
 const motherboardRoutes = require('./routes/motherboard');
-const processorRoutes = require('./routes/processor');
+const cpuRoutes = require('./routes/cpu');
 const ramRoutes = require('./routes/ram');
 const hddRoutes = require('./routes/hdd');
 const ssdRoutes = require('./routes/ssd');
@@ -19,7 +19,7 @@ app.use(passport.initialize());
 app.use('/api/spec', express.static('./API Docs.html'));
 app.use('/api/auth', authRoutes);
 app.use('/api/motherboards', motherboardRoutes);
-app.use('/api/processors', processorRoutes);
+app.use('/api/cpu', cpuRoutes);
 app.use('/api/ram', ramRoutes);
 app.use('/api/hdd', hddRoutes);
 app.use('/api/ssd', ssdRoutes);
