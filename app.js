@@ -16,6 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(require('cors')());
 app.use(passport.initialize());
 
+app.use('/api/spec', express.static('./API Docs.html'));
 app.use('/api/auth', authRoutes);
 app.use('/api/motherboards', motherboardRoutes);
 app.use('/api/processors', processorRoutes);
