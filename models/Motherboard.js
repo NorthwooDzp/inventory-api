@@ -16,6 +16,10 @@ const motherboardSchema = new Schema({
     chipset: {
         type: String,
         required: true
+    },
+    slotsForRam: {
+        type: Number,
+        required: true
     }
 });
 

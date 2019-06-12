@@ -82,7 +82,8 @@
         _id: String,
         manufacturer: String,
         model: String,
-        chipset: String
+        chipset: String,
+        slotsForRam: Number
     }</pre>
             </td>
         </tr>
@@ -280,6 +281,77 @@
     </table>
 
     <!--    -->
+    <h3>Employees</h3>
+
+    <p><i>additional route: <b>/employee</b></i></p>
+    <table>
+        <thead>
+        <tr>
+            <th>Action</th>
+            <th>Route</th>
+            <th>Method</th>
+            <th>Request</th>
+            <th>Response</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Get all Employees</td>
+            <td>/</td>
+            <td>GET</td>
+            <td>--</td>
+            <td>Employee[]</td>
+        </tr>
+
+        <tr>
+            <td>Get Employee by ID</td>
+            <td>/{id}</td>
+            <td>GET</td>
+            <td>--</td>
+            <td>Employee</td>
+        </tr>
+
+        <tr>
+            <td>Create new Employee</td>
+            <td>/</td>
+            <td>POST</td>
+            <td>
+                <pre>
+    {
+        firstName: String,
+        lastName: String,
+        position: String,
+    }</pre>
+            </td>
+            <td>Employee</td>
+        </tr>
+        <tr>
+            <td>Update Employee</td>
+            <td>/{id}</td>
+            <td>PUT</td>
+            <td>
+                <pre>
+    {
+        firstName?: String
+        lastName?: String,
+        position?: String,
+    }</pre>
+            </td>
+            <td>Employee</td>
+        </tr>
+
+        <tr>
+            <td>Delete Employee</td>
+            <td>/{id}</td>
+            <td>Delete</td>
+            <td>--</td>
+            <td>--</td>
+        </tr>
+        </tbody>
+    </table>
+    <p><i>? - optional field</i></p>
+
+    <!--    -->
     <h3>Motherboards</h3>
 
     <p><i>additional route: <b>/motherboards</b></i></p>
@@ -319,7 +391,8 @@
     {
         manufacturer: String,
         model: String,
-        chipset: String
+        chipset: String,
+        slotsForRam: Number
     }</pre>
             </td>
             <td>Motherboard</td>
@@ -335,6 +408,7 @@
         manufacturer?: String,
         model?: String,
         chipset?: String
+        slotsForRam?: Number
     }</pre>
             </td>
             <td>Motherboard</td>

@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const controller = require('../controllers/gpu');
+const controller = require('../controllers/employee');
 
 router.get('/', controller.getAll);
 router.get('/:id', controller.getById);
