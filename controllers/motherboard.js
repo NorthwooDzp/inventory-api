@@ -26,13 +26,13 @@ module.exports.getById = async (req, res) => {
 
 module.exports.create = async (req, res) => {
     try {
-        const motherboard = new Motherboard({
-            manufacturer: req.body.manufacturer,
-            model: req.body.model,
-            chipset: req.body.chipset
-        });
-        await motherboard.save();
-        res.status(201).json(motherboard);
+        const motherboard = new Motherboard(req.body);
+        try {
+            await motherboard.save();
+            res.status(201).json(motherboard);
+        } catch (e) {
+            res.status(400).json(e);
+        }
     } catch (e) {
         errorHandler(res, e);
     }

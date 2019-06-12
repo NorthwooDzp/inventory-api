@@ -9,16 +9,16 @@ const ramSchema = new Schema({
         type: String,
         required: true
     },
-    model: {
-        type: String,
-        required: true
-    },
     type: {
         type: String,
         required: true
     },
     volume: {
         type: Number,
+        required: true
+    },
+    frequency: {
+        type: String,
         required: true
     }
 });

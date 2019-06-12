@@ -26,12 +26,13 @@ module.exports.getById = async (req, res) => {
 
 module.exports.create = async (req, res) => {
     try {
-        const gpu = new GPU({
-            manufacturer: req.body.manufacturer,
-            model: req.body.model
-        });
-        await gpu.save();
-        res.status(201).json(gpu);
+        const gpu = new GPU(req.body);
+        try {
+            await gpu.save();
+            res.status(201).json(gpu);
+        } catch (e) {
+            res.status(400).json(e);
+        }
     } catch (e) {
         errorHandler(res, e);
     }

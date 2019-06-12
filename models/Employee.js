@@ -4,7 +4,7 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
-const associateSchema = new Schema({
+const employeeSchema = new Schema({
     firstName: {
         type: String,
         required: true
@@ -18,4 +18,4 @@ const associateSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('associates', associateSchema);
+module.exports = mongoose.model('employees', employeeSchema);

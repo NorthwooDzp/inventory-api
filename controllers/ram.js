@@ -26,14 +26,13 @@ module.exports.getById = async (req, res) => {
 
 module.exports.create = async (req, res) => {
     try {
-        const ram = new RAM({
-            manufacturer: req.body.manufacturer,
-            type: req.body.type,
-            frequency: req.body.frequency,
-            volume: req.body.volume
-        });
-        await ram.save();
-        res.status(201).json(ram);
+        const ram = new RAM(req.body);
+        try {
+            await ram.save();
+            res.status(201).json(ram);
+        } catch (e) {
+            res.status(400).json(e);
+        }
     } catch (e) {
         errorHandler(res, e);
     }

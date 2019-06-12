@@ -25,13 +25,15 @@ module.exports.getById = async (req, res) => {
 module.exports.create = async (req, res) => {
     try {
         const mouse = new Mouse({
-            assignedTo: req.body.assignedTo || null,
-            inventoryNumber: req.body.inventoryNumber,
-            manufacturer: req.body.manufacturer,
-            model: req.body.model
+            ...req.body,
+            assignedTo: req.body.assignedTo || null
         });
-        await mouse.save();
-        res.status(201).json(mouse);
+        try {
+            await mouse.save();
+            res.status(201).json(mouse);
+        } catch (e) {
+            res.status(400).json(e);
+        }
     } catch (e) {
         errorHandler(res, e);
     }
@@ -40,9 +42,9 @@ module.exports.create = async (req, res) => {
 module.exports.update = async (req, res) => {
     try {
         const mouse = await Mouse.findOneAndUpdate(
-            {_id: req.params.id},
-            {$set: req.body},
-            {new: true}
+            { _id: req.params.id },
+            { $set: req.body },
+            { new: true }
         );
         res.status(200).json(mouse);
     } catch (e) {
@@ -54,9 +56,9 @@ module.exports.delete = async (req, res) => {
     try {
         const mouse = await Mouse.findById(req.params.id);
         if (!mouse) {
-            res.status(404).json({message: 'HDD not found'})
+            res.status(404).json({ message: 'HDD not found' });
         } else {
-            await Mouse.findOneAndDelete({_id: req.params.id});
+            await Mouse.findOneAndDelete({ _id: req.params.id });
             res.status(204).end();
         }
     } catch (e) {

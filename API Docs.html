@@ -63,7 +63,7 @@
             </td>
         </tr>
         <tr>
-            <td>Associate</td>
+            <td>Employee</td>
             <td>
             <pre>
     {
@@ -153,7 +153,7 @@
     {
         _id: String,
         inventoryNumber: Number,
-        assignedTo: String(associateId),
+        assignedTo: String(employeeId),
         configuration:{
             motherboard: Motherboard,
             ram: RAM[],
@@ -172,7 +172,7 @@
     {
         _id: String,
         inventoryNumber: Number,
-        assignedTo: String(associateId),
+        assignedTo: String(employeeId),
         manufacturer: String,
         model: String,
         diagonal: Number
@@ -186,7 +186,7 @@
     {
         _id: String,
         inventoryNumber: Number,
-        assignedTo: String(associateId),
+        assignedTo: String(employeeId),
         manufacturer: String,
         model: String
     }</pre>
@@ -199,7 +199,7 @@
     {
         _id: String,
         inventoryNumber: Number,
-        assignedTo: String(associateId),
+        assignedTo: String(employeeId),
         manufacturer: String,
         model: String
     }</pre>
@@ -212,7 +212,7 @@
     {
         _id: String,
         inventoryNumber: Number,
-        assignedTo: String(associateId),
+        assignedTo: String(employeeId),
         manufacturer: String,
         model: String
     }</pre>
@@ -642,7 +642,73 @@
     <p><i>? - optional field</i></p>
 
     <!--    -->
+    <h3>GPU</h3>
 
+    <p><i>additional route: <b>/gpu</b></i></p>
+    <table>
+        <thead>
+        <tr>
+            <th>Action</th>
+            <th>Route</th>
+            <th>Method</th>
+            <th>Request</th>
+            <th>Response</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Get all GPUs</td>
+            <td>/</td>
+            <td>GET</td>
+            <td>query: <i>free: boolean</i> - return all not used items</td>
+            <td>GPU[]</td>
+        </tr>
+
+        <tr>
+            <td>Get GPU by ID</td>
+            <td>/{id}</td>
+            <td>GET</td>
+            <td>--</td>
+            <td>GPU</td>
+        </tr>
+
+        <tr>
+            <td>Create new GPU</td>
+            <td>/</td>
+            <td>POST</td>
+            <td>
+                <pre>
+    {
+        manufacturer: String,
+        model: String
+    }</pre>
+            </td>
+            <td>GPU</td>
+        </tr>
+        <tr>
+            <td>Update GPU</td>
+            <td>/{id}</td>
+            <td>PUT</td>
+            <td>
+                <pre>
+    {
+        manufacturer?: String,
+        model?: String
+    }</pre>
+            </td>
+            <td>GPU</td>
+        </tr>
+
+        <tr>
+            <td>Delete GPU</td>
+            <td>/{id}</td>
+            <td>Delete</td>
+            <td>--</td>
+            <td>--</td>
+        </tr>
+        </tbody>
+    </table>
+    <p><i>? - optional field</i></p>
 
 </div>
 </body>

@@ -26,13 +26,13 @@ module.exports.getById = async (req, res) => {
 
 module.exports.create = async (req, res) => {
     try {
-        const hdd = new HDD({
-            manufacturer: req.body.manufacturer,
-            model: req.body.model,
-            volume: req.body.volume
-        });
-        await hdd.save();
-        res.status(201).json(hdd);
+        const hdd = new HDD(req.body);
+        try {
+            await hdd.save();
+            res.status(201).json(hdd);
+        } catch (e) {
+            res.status(400).json(e)
+        }
     } catch (e) {
         errorHandler(res, e);
     }

@@ -19,15 +19,21 @@ app.use(express.urlencoded({ extended: true }));
 app.use(require('cors')());
 app.use(passport.initialize());
 
-app.use('/api/spec', express.static('./API Docs.html'));
+require('./middleware/passport')(passport);
+
+const guard = passport.authenticate('jwt', { session: false });
+
+app.get('/api/spec', (req, res) => {
+    res.sendFile('API Docs.html', {root: __dirname})
+});
 app.use('/api/auth', authRoutes);
-app.use('/api/motherboards', motherboardRoutes);
-app.use('/api/cpu', cpuRoutes);
-app.use('/api/gpu', gpuRoutes);
-app.use('/api/ram', ramRoutes);
-app.use('/api/hdd', hddRoutes);
-app.use('/api/ssd', ssdRoutes);
-app.use('/api/monitor', monitorRoutes);
-app.use('/api/mouse', mouseRoutes);
+app.use('/api/motherboards', guard, motherboardRoutes);
+app.use('/api/cpu', guard, cpuRoutes);
+app.use('/api/gpu', guard, gpuRoutes);
+app.use('/api/ram', guard, ramRoutes);
+app.use('/api/hdd', guard, hddRoutes);
+app.use('/api/ssd', guard, ssdRoutes);
+app.use('/api/monitor', guard, monitorRoutes);
+app.use('/api/mouse', guard, mouseRoutes);
 
 module.exports = app;

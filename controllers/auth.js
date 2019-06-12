@@ -6,36 +6,38 @@ const errorHandler = require('../util/errorHandler');
 
 
 module.exports.login = async (req, res) => {
-    if (!req.body.email || !req.body.password) {
-        checkAuthRequest(req, res);
-    }
-
     try {
-        const candidate = await User.findOne({ email: req.body.email });
-        if (!candidate) {
-            res.status(404).json({
-                message: 'User with this email does not exist'
-            });
+        const err = new User(req.body).validateSync();
+        if (err) {
+            res.status(400).json(err);
+            console.log(err);
         } else {
-            const comparePassResult = bcrypt.compareSync(req.body.password, candidate.password);
-            if (comparePassResult) {
-                const token = jwt.sign(
-                    {
-                        email: candidate.email,
-                        id: candidate._id
-                    },
-                    keys.jwtStr,
-                    {
-                        expiresIn: 60 * 60 * 2
-                    }
-                );
-                res.status(200).json({
-                    token: `Bearer ${token}`
+            const candidate = await User.findOne({ email: req.body.email });
+            if (!candidate) {
+                res.status(404).json({
+                    message: 'User with this email does not exist'
                 });
             } else {
-                res.status(401).json({
-                    message: 'Incorrect Password. Try again'
-                });
+                const comparePassResult = bcrypt.compareSync(req.body.password, candidate.password);
+                if (comparePassResult) {
+                    const token = jwt.sign(
+                        {
+                            email: candidate.email,
+                            id: candidate._id
+                        },
+                        keys.jwtStr,
+                        {
+                            expiresIn: 60 * 60 * 2
+                        }
+                    );
+                    res.status(200).json({
+                        token: `Bearer ${token}`
+                    });
+                } else {
+                    res.status(401).json({
+                        message: 'Incorrect Password. Try again'
+                    });
+                }
             }
         }
     } catch (e) {
@@ -45,41 +47,30 @@ module.exports.login = async (req, res) => {
 };
 
 module.exports.register = async (req, res) => {
-    if (!req.body.email || !req.body.password) {
-        checkAuthRequest(req, res);
-    }
-
     try {
-        const candidate = await User.findOne({ email: req.body.email });
-        if (candidate) {
-            res.status(409).json({ message: 'User with this email.already exist' });
+        const err = new User(req.body).validateSync();
+        if (err) {
+            res.status(400).json(err);
+            console.log(err);
         } else {
-            const salt = bcrypt.genSaltSync(16);
-            const user = new User({
-                email: req.body.email,
-                password: bcrypt.hashSync(req.body.password, salt)
-            });
-            await user.save();
-            res.status(201).json(user);
+            const candidate = await User.findOne({ email: req.body.email });
+            if (candidate) {
+                res.status(409).json({ message: 'User with this email already exist' });
+            } else {
+                const salt = bcrypt.genSaltSync(16);
+                const user = new User({
+                    email: req.body.email,
+                    password: bcrypt.hashSync(req.body.password, salt)
+                });
+                try {
+                    await user.save();
+                    res.status(201).json(user);
+                } catch (e) {
+                    res.status(400).json(e);
+                }
+            }
         }
     } catch (e) {
         errorHandler(res, e);
-    }
-};
-
-
-const checkAuthRequest = (req, res) => {
-    if (!req.body.email && !req.body.password) {
-        res.status(400).json({
-            message: 'Email and password are required!'
-        });
-    } else if (!req.body.email) {
-        res.status(400).json({
-            message: 'Email is required'
-        });
-    } else if (!req.body.password) {
-        res.status(400).json({
-            message: 'Password is required'
-        });
     }
 };

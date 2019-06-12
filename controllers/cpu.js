@@ -26,13 +26,13 @@ module.exports.getById = async (req, res) => {
 
 module.exports.create = async (req, res) => {
     try {
-        const cpu = new CPU({
-            manufacturer: req.body.manufacturer,
-            model: req.body.model,
-            frequency: req.body.frequency
-        });
-        await cpu.save();
-        res.status(201).json(cpu);
+        const cpu = new CPU(req.body);
+        try {
+            await cpu.save();
+            res.status(201).json(cpu);
+        } catch (e) {
+            res.status(400).json(e);
+        }
     } catch (e) {
         errorHandler(res, e);
     }
@@ -41,9 +41,9 @@ module.exports.create = async (req, res) => {
 module.exports.update = async (req, res) => {
     try {
         const cpu = await CPU.findOneAndUpdate(
-            {_id: req.params.id},
-            {$set: req.body},
-            {new: true}
+            { _id: req.params.id },
+            { $set: req.body },
+            { new: true }
         );
         res.status(200).json(cpu);
     } catch (e) {
@@ -55,9 +55,9 @@ module.exports.delete = async (req, res) => {
     try {
         const cpu = await CPU.findById(req.params.id);
         if (!cpu) {
-            res.status(404).json({message: 'CPU not found'})
+            res.status(404).json({ message: 'CPU not found' });
         } else {
-            await CPU.findOneAndDelete({_id: req.params.id});
+            await CPU.findOneAndDelete({ _id: req.params.id });
             res.status(204).end();
         }
     } catch (e) {
