@@ -20,7 +20,11 @@ module.exports.getAll = async (req, res) => {
 module.exports.getById = async (req, res) => {
     try {
         const ssd = await SSD.findById(req.params.id);
+        if (!ssd) {
+            res.status(404).end();
+        } else {
         res.status(200).json(ssd);
+        }
     } catch (e) {
         errorHandler(res, e);
     }

@@ -1,15 +1,13 @@
-const CPU = require('../models/CPU');
-const Computer = require('../models/Computer');
+const Keyboard = require('../models/Keyboard');
 const errorHandler = require('../util/errorHandler');
 
 module.exports.getAll = async (req, res) => {
     try {
-        let cpu = await CPU.find();
+        let keyboards = await Keyboard.find();
         if (req.query.free) {
-            const computers = await Computer.find();
-            cpu = cpu.filter(cpu => !computers.find(comp => comp.configuration.cpu === cpu));
+            keyboards = keyboards.filter(keyboard => !keyboard.assignedTo);
         }
-        res.status(200).json(cpu);
+        res.status(200).json(keyboards);
     } catch (e) {
         errorHandler(res, e);
     }
@@ -17,11 +15,11 @@ module.exports.getAll = async (req, res) => {
 
 module.exports.getById = async (req, res) => {
     try {
-        const cpu = await CPU.findById(req.params.id);
-        if (!cpu) {
-            res.status(400).end();
+        const keyboard = await Keyboard.findById(req.params.id);
+        if (!keyboard) {
+            res.status(404).end();
         } else {
-            res.status(200).json(cpu);
+            res.status(200).json(keyboard);
         }
     } catch (e) {
         errorHandler(res, e);
@@ -30,10 +28,13 @@ module.exports.getById = async (req, res) => {
 
 module.exports.create = async (req, res) => {
     try {
-        const cpu = new CPU(req.body);
+        const keyboard = new Keyboard({
+            ...req.body,
+            assignedTo: req.body.assignedTo || null
+        });
         try {
-            await cpu.save();
-            res.status(201).json(cpu);
+            await keyboard.save();
+            res.status(201).json(keyboard);
         } catch (e) {
             res.status(400).json(e);
         }
@@ -44,12 +45,12 @@ module.exports.create = async (req, res) => {
 
 module.exports.update = async (req, res) => {
     try {
-        const cpu = await CPU.findOneAndUpdate(
+        const keyboard = await Keyboard.findOneAndUpdate(
             { _id: req.params.id },
             { $set: req.body },
             { new: true }
         );
-        res.status(200).json(cpu);
+        res.status(200).json(keyboard);
     } catch (e) {
         errorHandler(res, e);
     }
@@ -57,11 +58,11 @@ module.exports.update = async (req, res) => {
 
 module.exports.delete = async (req, res) => {
     try {
-        const cpu = await CPU.findById(req.params.id);
-        if (!cpu) {
-            res.status(404).json({ message: 'CPU not found' });
+        const keyboard = await Keyboard.findById(req.params.id);
+        if (!keyboard) {
+            res.status(404).json({ message: 'HDD not found' });
         } else {
-            await CPU.findOneAndDelete({ _id: req.params.id });
+            await Keyboard.findOneAndDelete({ _id: req.params.id });
             res.status(204).end();
         }
     } catch (e) {

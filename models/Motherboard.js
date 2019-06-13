@@ -5,7 +5,7 @@ mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
 const motherboardSchema = new Schema({
-    manufacturer: {
+    vendor: {
         type: String,
         required: true
     },

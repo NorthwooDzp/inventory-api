@@ -6,12 +6,12 @@ mongoose.set('useCreateIndex', true);
 
 const computerSchema = new Schema({
     inventoryNumber: {
-        type: Number,
+        type: String,
         required: true,
         unique: true
     },
     assignedTo: {
-        ref: 'users',
+        ref: 'employees',
         type: Schema.Types.ObjectId
     },
     configuration: {
@@ -33,11 +33,11 @@ const computerSchema = new Schema({
             ref: 'gpu',
             type: Schema.Types.ObjectId
         },
-        HDD: {
+        hdd: {
             ref: 'hdd',
             type: Schema.Types.ObjectId
         },
-        SSD: {
+        ssd: {
             ref: 'ssd',
             type: Schema.Types.ObjectId
         },

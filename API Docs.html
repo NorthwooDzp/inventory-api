@@ -80,7 +80,7 @@
             <pre>
     {
         _id: String,
-        manufacturer: String,
+        vendor: String,
         model: String,
         chipset: String,
         slotsForRam: Number
@@ -93,7 +93,7 @@
             <pre>
     {
         _id: String,
-        manufacturer: String,
+        vendor: String,
         model: String,
         frequency: String
     }</pre>
@@ -105,7 +105,7 @@
             <pre>
     {
         _id: String,
-        manufacturer: String,
+        vendor: String,
         type: String,
         frequency: String,
         volume: Number
@@ -118,7 +118,7 @@
             <pre>
     {
         _id: String,
-        manufacturer: String,
+        vendor: String,
         model: String,
         volume: Number
     }</pre>
@@ -130,7 +130,7 @@
             <pre>
     {
         _id: String,
-        manufacturer: String,
+        vendor: String,
         model: String,
         volume: Number
     }</pre>
@@ -142,7 +142,7 @@
             <pre>
     {
         _id: String,
-        manufacturer: String,
+        vendor: String,
         model: String
     }</pre>
             </td>
@@ -153,7 +153,7 @@
             <pre>
     {
         _id: String,
-        inventoryNumber: Number,
+        inventoryNumber: String,
         assignedTo: String(employeeId),
         configuration:{
             motherboard: Motherboard,
@@ -172,9 +172,9 @@
             <pre>
     {
         _id: String,
-        inventoryNumber: Number,
+        inventoryNumber: String,
         assignedTo: String(employeeId),
-        manufacturer: String,
+        vendor: String,
         model: String,
         diagonal: Number
     }</pre>
@@ -186,9 +186,9 @@
             <pre>
     {
         _id: String,
-        inventoryNumber: Number,
+        inventoryNumber: String,
         assignedTo: String(employeeId),
-        manufacturer: String,
+        vendor: String,
         model: String
     }</pre>
             </td>
@@ -199,9 +199,9 @@
             <pre>
     {
         _id: String,
-        inventoryNumber: Number,
+        inventoryNumber: String,
         assignedTo: String(employeeId),
-        manufacturer: String,
+        vendor: String,
         model: String
     }</pre>
             </td>
@@ -212,10 +212,24 @@
             <pre>
     {
         _id: String,
-        inventoryNumber: Number,
+        inventoryNumber: String,
         assignedTo: String(employeeId),
-        manufacturer: String,
+        vendor: String,
         model: String
+    }</pre>
+            </td>
+        </tr>
+        <tr>
+            <td>Compilet item</td>
+            <td>
+                <pre>
+    {
+        employee: Employee,
+        computer: Computer,
+        monitors: Monitor[],
+        keyboard: Keyboard,
+        mouse: Mouse,
+        headphones: Headphones
     }</pre>
             </td>
         </tr>
@@ -389,7 +403,7 @@
             <td>
             <pre>
     {
-        manufacturer: String,
+        vendor: String,
         model: String,
         chipset: String,
         slotsForRam: Number
@@ -405,7 +419,7 @@
             <td>
             <pre>
     {
-        manufacturer?: String,
+        vendor?: String,
         model?: String,
         chipset?: String
         slotsForRam?: Number
@@ -464,7 +478,7 @@
             <td>
             <pre>
     {
-        manufacturer: String,
+        vendor: String,
         model: String,
         frequency: String
     }</pre>
@@ -479,7 +493,7 @@
             <td>
             <pre>
     {
-        manufacturer?: String,
+        vendor?: String,
         model?: String,
         frequency?: String
     }</pre>
@@ -537,7 +551,7 @@
             <td>
                 <pre>
     {
-        manufacturer: String,
+        vendor: String,
         type: String,
         frequency: String,
         volume: String
@@ -553,7 +567,7 @@
             <td>
                 <pre>
     {
-        manufacturer?: String,
+        vendor?: String,
         type?: String,
         frequency?: String,
         volume?: String
@@ -611,7 +625,7 @@
             <td>
                 <pre>
     {
-        manufacturer: String,
+        vendor: String,
         model: String,
         volume: String
     }</pre>
@@ -625,7 +639,7 @@
             <td>
                 <pre>
     {
-        manufacturer?: String,
+        vendor?: String,
         model?: String,
         volume?: String
     }</pre>
@@ -682,7 +696,7 @@
             <td>
                 <pre>
     {
-        manufacturer: String,
+        vendor: String,
         model: String,
         volume: String
     }</pre>
@@ -696,7 +710,7 @@
             <td>
                 <pre>
     {
-        manufacturer?: String,
+        vendor?: String,
         model?: String,
         volume?: String
     }</pre>
@@ -753,7 +767,7 @@
             <td>
                 <pre>
     {
-        manufacturer: String,
+        vendor: String,
         model: String
     }</pre>
             </td>
@@ -766,7 +780,7 @@
             <td>
                 <pre>
     {
-        manufacturer?: String,
+        vendor?: String,
         model?: String
     }</pre>
             </td>
@@ -783,6 +797,420 @@
         </tbody>
     </table>
     <p><i>? - optional field</i></p>
+
+
+    <!--    -->
+    <h3>Computer</h3>
+
+    <p><i>additional route: <b>/computer</b></i></p>
+    <table>
+        <thead>
+        <tr>
+            <th>Action</th>
+            <th>Route</th>
+            <th>Method</th>
+            <th>Request</th>
+            <th>Response</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Get all Computers</td>
+            <td>/</td>
+            <td>GET</td>
+            <td>query: <i>free: boolean</i> - return all not used items</td>
+            <td>Computer[]</td>
+        </tr>
+
+        <tr>
+            <td>Get Computer by ID</td>
+            <td>/{id}</td>
+            <td>GET</td>
+            <td>--</td>
+            <td>Computer</td>
+        </tr>
+
+        <tr>
+            <td>Create new Computer</td>
+            <td>/</td>
+            <td>POST</td>
+            <td>
+                <pre>
+    {
+        inventoryNumber: String,
+        assignedTo: String (employeeId),
+        configuration: {
+            motherboard: String (id),
+            ram: String[] (id[]),
+            cpu: String (id),
+            gpu: String (id),
+            hdd: String (id),
+            ssd: String (id)
+        }
+    }</pre>
+            </td>
+            <td>Computer</td>
+        </tr>
+        <tr>
+            <td>Update Computer</td>
+            <td>/{id}</td>
+            <td>PUT</td>
+            <td>
+                <pre>
+    {
+        inventoryNumber?: String,
+        assignedTo?: String (employeeId),
+        configuration?: {
+            motherboard?: String (id),
+            ram?: String[] (id[]),
+            cpu?: String (id),
+            gpu?: String (id),
+            hdd?: String (id),
+            ssd?: String (id)
+        }
+    }</pre>
+            </td>
+            <td>GPU</td>
+        </tr>
+
+        <tr>
+            <td>Delete Computer</td>
+            <td>/{id}</td>
+            <td>Delete</td>
+            <td>--</td>
+            <td>--</td>
+        </tr>
+        </tbody>
+    </table>
+    <p><i>? - optional field</i></p>
+
+
+    <!--    -->
+    <h3>Monitor</h3>
+
+    <p><i>additional route: <b>/monitor</b></i></p>
+    <table>
+        <thead>
+        <tr>
+            <th>Action</th>
+            <th>Route</th>
+            <th>Method</th>
+            <th>Request</th>
+            <th>Response</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Get all Monitors</td>
+            <td>/</td>
+            <td>GET</td>
+            <td>query: <i>free: boolean</i> - return all not used items</td>
+            <td>Monitor[]</td>
+        </tr>
+
+        <tr>
+            <td>Get Monitor by ID</td>
+            <td>/{id}</td>
+            <td>GET</td>
+            <td>--</td>
+            <td>Monitor</td>
+        </tr>
+
+        <tr>
+            <td>Create new Monitor</td>
+            <td>/</td>
+            <td>POST</td>
+            <td>
+                <pre>
+    {
+        inventoryNumber: String,
+        assignedTo: String,
+        vendor: String,
+        model: String,
+        diagonal: Number
+    }</pre>
+            </td>
+            <td>Monitor</td>
+        </tr>
+        <tr>
+            <td>Update Monitor</td>
+            <td>/{id}</td>
+            <td>PUT</td>
+            <td>
+                <pre>
+    {
+        inventoryNumber?: String,
+        assignedTo?: String,
+        vendor?: String,
+        model?: String,
+        diagonal?: Number
+    }</pre>
+            </td>
+            <td>Monitor</td>
+        </tr>
+
+        <tr>
+            <td>Delete Monitor</td>
+            <td>/{id}</td>
+            <td>Delete</td>
+            <td>--</td>
+            <td>--</td>
+        </tr>
+        </tbody>
+    </table>
+    <p><i>? - optional field</i></p>
+
+
+    <!--    -->
+    <h3>Mouse</h3>
+
+    <p><i>additional route: <b>/mouse</b></i></p>
+    <table>
+        <thead>
+        <tr>
+            <th>Action</th>
+            <th>Route</th>
+            <th>Method</th>
+            <th>Request</th>
+            <th>Response</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Get all Mouses</td>
+            <td>/</td>
+            <td>GET</td>
+            <td>query: <i>free: boolean</i> - return all not used items</td>
+            <td>Mouse[]</td>
+        </tr>
+
+        <tr>
+            <td>Get Mouse by ID</td>
+            <td>/{id}</td>
+            <td>GET</td>
+            <td>--</td>
+            <td>Mouse</td>
+        </tr>
+
+        <tr>
+            <td>Create new Mouse</td>
+            <td>/</td>
+            <td>POST</td>
+            <td>
+                <pre>
+    {
+        inventoryNumber: String,
+        assignedTo: String,
+        vendor: String,
+        model: String
+    }</pre>
+            </td>
+            <td>Mouse</td>
+        </tr>
+        <tr>
+            <td>Update Mouse</td>
+            <td>/{id}</td>
+            <td>PUT</td>
+            <td>
+                <pre>
+    {
+        inventoryNumber?: String,
+        assignedTo?: String,
+        vendor?: String,
+        model?: String
+    }</pre>
+            </td>
+            <td>Mouse</td>
+        </tr>
+
+        <tr>
+            <td>Delete Mouse</td>
+            <td>/{id}</td>
+            <td>Delete</td>
+            <td>--</td>
+            <td>--</td>
+        </tr>
+        </tbody>
+    </table>
+    <p><i>? - optional field</i></p>
+
+    <!--    -->
+    <h3>Keyboard</h3>
+
+    <p><i>additional route: <b>/keyboard</b></i></p>
+    <table>
+        <thead>
+        <tr>
+            <th>Action</th>
+            <th>Route</th>
+            <th>Method</th>
+            <th>Request</th>
+            <th>Response</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Get all Keyboards</td>
+            <td>/</td>
+            <td>GET</td>
+            <td>query: <i>free: boolean</i> - return all not used items</td>
+            <td>Keyboard[]</td>
+        </tr>
+
+        <tr>
+            <td>Get Keyboard by ID</td>
+            <td>/{id}</td>
+            <td>GET</td>
+            <td>--</td>
+            <td>Keyboard</td>
+        </tr>
+
+        <tr>
+            <td>Create new Keyboard</td>
+            <td>/</td>
+            <td>POST</td>
+            <td>
+                <pre>
+    {
+        inventoryNumber: String,
+        assignedTo: String,
+        vendor: String,
+        model: String
+    }</pre>
+            </td>
+            <td>Keyboard</td>
+        </tr>
+        <tr>
+            <td>Update Keyboard</td>
+            <td>/{id}</td>
+            <td>PUT</td>
+            <td>
+                <pre>
+    {
+        inventoryNumber?: String,
+        assignedTo?: String,
+        vendor?: String,
+        model?: String
+    }</pre>
+            </td>
+            <td>Keyboard</td>
+        </tr>
+
+        <tr>
+            <td>Delete Keyboard</td>
+            <td>/{id}</td>
+            <td>Delete</td>
+            <td>--</td>
+            <td>--</td>
+        </tr>
+        </tbody>
+    </table>
+    <p><i>? - optional field</i></p>
+
+    <!--    -->
+    <h3>Headphones</h3>
+
+    <p><i>additional route: <b>/headphones</b></i></p>
+    <table>
+        <thead>
+        <tr>
+            <th>Action</th>
+            <th>Route</th>
+            <th>Method</th>
+            <th>Request</th>
+            <th>Response</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Get all Headphones</td>
+            <td>/</td>
+            <td>GET</td>
+            <td>query: <i>free: boolean</i> - return all not used items</td>
+            <td>Headphones[]</td>
+        </tr>
+
+        <tr>
+            <td>Get Headphones by ID</td>
+            <td>/{id}</td>
+            <td>GET</td>
+            <td>--</td>
+            <td>Headphones</td>
+        </tr>
+
+        <tr>
+            <td>Create new Headphones</td>
+            <td>/</td>
+            <td>POST</td>
+            <td>
+                <pre>
+    {
+        inventoryNumber: String,
+        assignedTo: String,
+        vendor: String,
+        model: String
+    }</pre>
+            </td>
+            <td>Headphones</td>
+        </tr>
+        <tr>
+            <td>Update Headphones</td>
+            <td>/{id}</td>
+            <td>PUT</td>
+            <td>
+                <pre>
+    {
+        inventoryNumber?: String,
+        assignedTo?: String,
+        vendor?: String,
+        model?: String
+    }</pre>
+            </td>
+            <td>Headphones</td>
+        </tr>
+
+        <tr>
+            <td>Delete Headphones</td>
+            <td>/{id}</td>
+            <td>Delete</td>
+            <td>--</td>
+            <td>--</td>
+        </tr>
+        </tbody>
+    </table>
+    <p><i>? - optional field</i></p>
+
+
+    <h2>Get all items</h2>
+    <p><i>additional route: <b>/headphones</b></i></p>
+    <table>
+        <thead>
+        <tr>
+            <th>Action</th>
+            <th>Route</th>
+            <th>Method</th>
+            <th>Request</th>
+            <th>Response</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Get All Items</td>
+            <td>/</td>
+            <td>GET</td>
+            <td>--</td>
+            <td>Compiled item []</td>
+        </tr>
+        <tr>
+            <td>Get items for certain employee</td>
+            <td>/{employee.id}</td>
+            <td>GET</td>
+            <td>--</td>
+            <td>Compiled item</td>
+        </tr>
+        </tbody>
+    </table>
+
 
 </div>
 </body>

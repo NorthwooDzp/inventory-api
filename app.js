@@ -10,7 +10,10 @@ const hddRoutes = require('./routes/hdd');
 const ssdRoutes = require('./routes/ssd');
 const monitorRoutes = require('./routes/monitor');
 const mouseRoutes = require('./routes/mouse');
+const keyboardRoutes = require('./routes/keyboard');
 const employeeRoutes = require('./routes/employee');
+const compRoutes = require('./routes/computer');
+const getInfoRoutes = require('./routes/getCombined');
 
 const app = express();
 
@@ -25,8 +28,9 @@ require('./middleware/passport')(passport);
 const guard = passport.authenticate('jwt', { session: false });
 
 app.get('/api/spec', (req, res) => {
-    res.sendFile('API Docs.html', {root: __dirname})
+    res.sendFile('API Docs.html', { root: __dirname });
 });
+
 app.use('/api/auth', authRoutes);
 app.use('/api/motherboards', motherboardRoutes);
 app.use('/api/cpu', cpuRoutes);
@@ -37,5 +41,8 @@ app.use('/api/ssd', ssdRoutes);
 app.use('/api/monitor', monitorRoutes);
 app.use('/api/mouse', mouseRoutes);
 app.use('/api/employee', employeeRoutes);
+app.use('/api/computer', compRoutes);
+app.use('/api/keyboard', keyboardRoutes);
+app.use('/api/getInfo', getInfoRoutes);
 
 module.exports = app;

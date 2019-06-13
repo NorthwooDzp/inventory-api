@@ -7,7 +7,7 @@ module.exports.getAll = async (req, res) => {
         let hdd = await HDD.find();
         if (req.query.free) {
             const computers = await Computer.find();
-            hdd = hdd.filter(hdd => !computers.find(comp => comp.configuration.HDD === hdd))
+            hdd = hdd.filter(hdd => !computers.find(comp => comp.configuration.HDD === hdd));
         }
         res.status(200).json(hdd);
     } catch (e) {
@@ -18,7 +18,11 @@ module.exports.getAll = async (req, res) => {
 module.exports.getById = async (req, res) => {
     try {
         const hdd = await HDD.findById(req.params.id);
-        res.status(200).json(hdd);
+        if (!hdd) {
+            res.status(404).end();
+        } else {
+            res.status(200).json(hdd);
+        }
     } catch (e) {
         errorHandler(res, e);
     }
@@ -31,7 +35,7 @@ module.exports.create = async (req, res) => {
             await hdd.save();
             res.status(201).json(hdd);
         } catch (e) {
-            res.status(400).json(e)
+            res.status(400).json(e);
         }
     } catch (e) {
         errorHandler(res, e);
@@ -41,9 +45,9 @@ module.exports.create = async (req, res) => {
 module.exports.update = async (req, res) => {
     try {
         const hdd = await HDD.findOneAndUpdate(
-            {_id: req.params.id},
-            {$set: req.body},
-            {new: true}
+            { _id: req.params.id },
+            { $set: req.body },
+            { new: true }
         );
         res.status(200).json(hdd);
     } catch (e) {
@@ -55,9 +59,9 @@ module.exports.delete = async (req, res) => {
     try {
         const hdd = await HDD.findById(req.params.id);
         if (!hdd) {
-            res.status(404).json({message: 'HDD not found'})
+            res.status(404).json({ message: 'HDD not found' });
         } else {
-            await HDD.findOneAndDelete({_id: req.params.id});
+            await HDD.findOneAndDelete({ _id: req.params.id });
             res.status(204).end();
         }
     } catch (e) {

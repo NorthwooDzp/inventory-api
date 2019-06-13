@@ -1,15 +1,13 @@
-const GPU = require('../models/GPU');
-const Computer = require('../models/Computer');
+const Headphones = require('../models/Headphones');
 const errorHandler = require('../util/errorHandler');
 
 module.exports.getAll = async (req, res) => {
     try {
-        let gpu = await GPU.find();
+        let headphones = await Headphones.find();
         if (req.query.free) {
-            const computers = await Computer.find();
-            gpu = gpu.filter(gpu => !computers.find(comp => comp.configuration.cpu === gpu));
+            headphones = headphones.filter(headphones => !headphones.assignedTo);
         }
-        res.status(200).json(gpu);
+        res.status(200).json(headphones);
     } catch (e) {
         errorHandler(res, e);
     }
@@ -17,11 +15,11 @@ module.exports.getAll = async (req, res) => {
 
 module.exports.getById = async (req, res) => {
     try {
-        const gpu = await GPU.findById(req.params.id);
-        if (!gpu) {
+        const headphones = await Headphones.findById(req.params.id);
+        if (!headphones) {
             res.status(404).end();
         } else {
-            res.status(200).json(gpu);
+            res.status(200).json(headphones);
         }
     } catch (e) {
         errorHandler(res, e);
@@ -30,10 +28,13 @@ module.exports.getById = async (req, res) => {
 
 module.exports.create = async (req, res) => {
     try {
-        const gpu = new GPU(req.body);
+        const headphones = new Headphones({
+            ...req.body,
+            assignedTo: req.body.assignedTo || null
+        });
         try {
-            await gpu.save();
-            res.status(201).json(gpu);
+            await headphones.save();
+            res.status(201).json(headphones);
         } catch (e) {
             res.status(400).json(e);
         }
@@ -44,12 +45,12 @@ module.exports.create = async (req, res) => {
 
 module.exports.update = async (req, res) => {
     try {
-        const gpu = await GPU.findOneAndUpdate(
+        const headphones = await Headphones.findOneAndUpdate(
             { _id: req.params.id },
             { $set: req.body },
             { new: true }
         );
-        res.status(200).json(gpu);
+        res.status(200).json(headphones);
     } catch (e) {
         errorHandler(res, e);
     }
@@ -57,11 +58,11 @@ module.exports.update = async (req, res) => {
 
 module.exports.delete = async (req, res) => {
     try {
-        const gpu = await GPU.findById(req.params.id);
-        if (!gpu) {
-            res.status(404).json({ message: 'GPU not found' });
+        const headphones = await Headphones.findById(req.params.id);
+        if (!headphones) {
+            res.status(404).json({ message: 'HDD not found' });
         } else {
-            await GPU.findOneAndDelete({ _id: req.params.id });
+            await Headphones.findOneAndDelete({ _id: req.params.id });
             res.status(204).end();
         }
     } catch (e) {

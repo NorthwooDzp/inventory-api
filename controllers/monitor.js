@@ -16,7 +16,11 @@ module.exports.getAll = async (req, res) => {
 module.exports.getById = async (req, res) => {
     try {
         const monitor = await Monitor.findById(req.params.id);
-        res.status(200).json(monitor);
+        if (!monitor) {
+            res.status(404).end();
+        } else {
+            res.status(200).json(monitor);
+        }
     } catch (e) {
         errorHandler(res, e);
     }

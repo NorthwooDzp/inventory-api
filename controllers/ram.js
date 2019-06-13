@@ -18,7 +18,11 @@ module.exports.getAll = async (req, res) => {
 module.exports.getById = async (req, res) => {
     try {
         const ram = await RAM.findById(req.params.id);
-        res.status(200).json(ram);
+        if (!ram) {
+            res.status(404).end();
+        } else {
+            res.status(200).json(ram);
+        }
     } catch (e) {
         errorHandler(res, e);
     }

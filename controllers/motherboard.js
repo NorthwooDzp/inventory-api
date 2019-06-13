@@ -18,7 +18,11 @@ module.exports.getAll = async (req, res) => {
 module.exports.getById = async (req, res) => {
     try {
         const motherboard = await Motherboard.findById(req.params.id);
-        res.status(200).json(motherboard);
+        if (!motherboard) {
+            res.status(404).end();
+        } else {
+            res.status(200).json(motherboard);
+        }
     } catch (e) {
         errorHandler(res, e);
     }

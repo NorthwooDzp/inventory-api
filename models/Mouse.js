@@ -6,7 +6,7 @@ mongoose.set('useCreateIndex', true);
 
 const ssdSchema = new Schema({
     inventoryNumber: {
-        type: Number,
+        type: String,
         required: true,
         unique: true
     },
@@ -14,7 +14,7 @@ const ssdSchema = new Schema({
         ref: 'associate',
         type: Schema.Types.ObjectId
     },
-    manufacturer: {
+    vendor: {
         type: String,
         required: true
     },

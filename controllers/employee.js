@@ -13,7 +13,11 @@ module.exports.getAll = async (req, res) => {
 module.exports.getById = async (req, res) => {
     try {
         const employee = await Employee.findById(req.params.id);
-        res.status(200).json(employee);
+        if (!employee) {
+            res.status(404).end();
+        } else {
+            res.status(200).json(employee);
+        }
     } catch (e) {
         errorHandler(res, e);
     }

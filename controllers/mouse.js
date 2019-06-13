@@ -16,7 +16,11 @@ module.exports.getAll = async (req, res) => {
 module.exports.getById = async (req, res) => {
     try {
         const mouse = await Mouse.findById(req.params.id);
-        res.status(200).json(mouse);
+        if (!mouse) {
+            res.status(404).end();
+        } else {
+            res.status(200).json(mouse);
+        }
     } catch (e) {
         errorHandler(res, e);
     }
