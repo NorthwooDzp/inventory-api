@@ -13,6 +13,10 @@ const ssdSchema = new Schema({
     volume: {
         type: Number,
         required: true
+    },
+    interface: {
+        type: String,
+        enum: ['sata', 'm2']
     }
 });
 
