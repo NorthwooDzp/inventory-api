@@ -10,6 +10,10 @@ const cpuSchema = new Schema({
         type: String,
         required: true
     },
+    family: {
+        type: String,
+        required: true
+    },
     frequency: {
         type: String,
         required: true
