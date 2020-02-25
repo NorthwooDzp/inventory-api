@@ -1,4 +1,4 @@
 module.exports = {
-    mongoURI: 'mongodb+srv://dbadmin:dbadmin@cluster0-ddvd6.mongodb.net/test?retryWrites=true&w=majority',
+    mongoURI: 'mongodb+srv://dbadmin:dbpassword@cluster0-qbyda.mongodb.net/test?retryWrites=true&w=majority',
     jwtStr: 'inventory'
 };
