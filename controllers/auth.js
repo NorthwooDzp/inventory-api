@@ -57,7 +57,7 @@ module.exports.register = async (req, res) => {
             if (candidate) {
                 res.status(409).json({ message: 'User with this email already exist' });
             } else {
-                const salt = bcrypt.genSaltSync(16);
+                const salt = bcrypt.genSaltSync(8);
                 const user = new User({
                     email: req.body.email,
                     password: bcrypt.hashSync(req.body.password, salt)
