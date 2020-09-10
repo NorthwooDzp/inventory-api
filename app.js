@@ -2,7 +2,6 @@ const express = require('express');
 const passport = require('passport');
 
 const routes = require('./routes');
-
 const app = express();
 
 app.use(require('morgan')('dev'));
