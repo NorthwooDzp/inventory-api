@@ -53,10 +53,10 @@ module.exports.update = async (req, res) => {
 module.exports.delete = async (req, res) => {
     try {
         const employee = await Employee.findById(req.params.id);
-        if (!ssd) {
+        if (!employee) {
             res.status(404).json({ message: 'HDD not found' });
         } else {
-            await employee.findOneAndDelete({ _id: req.params.id });
+            await Employee.findOneAndDelete({ _id: req.params.id });
             res.status(204).end();
         }
     } catch (e) {
